@@ -35,18 +35,15 @@ function fetchTest() {
   fetch("http://localhost:3000/api/test-hierarchy")
     .then((resp) => resp.json())
     .then((resp) => {
-      //   console.log("resp", resp);
       let select_type = document.getElementById("select_type");
       let inhtml = "";
       let allTest = [];
       Object.keys(resp).map((item) => {
         let tests = Object.keys(resp[item]);
-        // console.log("tst", tests);
         tests.map((i) => {
           allTest.push(i);
         });
       });
-      //   console.log("test case", allTest);
       allTest.map((test) => {
         inhtml = inhtml + `<option value="${test}">${test}</option>`;
       });
@@ -79,7 +76,12 @@ function fetchId() {
         });
       });
       //   console.log("test case", allTest);
-      allTest.map((test) => {
+      //   console.log("allTest", allTest);
+      let obj = {};
+      allTest.map((i) => {
+        obj[i] = i;
+      });
+      Object.keys(obj).map((test) => {
         inhtml = inhtml + `<option value="${test}">${test}</option>`;
       });
 
