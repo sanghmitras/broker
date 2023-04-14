@@ -1,0 +1,6 @@
+[
+  "suite_gem_common",
+  "suite_helios",
+  "suite_helios_bdd",
+  "suite_helios_mockServer"
+]
