@@ -41,7 +41,7 @@ router.get("/test-hierarchy", function (req, res, next) {
 });
 
 router.post("/test-case-by-id", function (req, res, next) {
-  fs.readFile("../broker/w_poc/output.json", "utf-8", function (err, data) {
+  fs.readFile("../broker/w_poc_2/output.json", "utf-8", function (err, data) {
     if (err) throw err;
     let test_case_data = null;
     let req_item = req.body["id"];
