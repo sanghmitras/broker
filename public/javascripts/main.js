@@ -1,10 +1,11 @@
+var test_hierarchy = {};
 function fetchdata() {
   fetch("http://localhost:3000/api/test-suit")
     .then((resp) => resp.json())
     .then((resp) => {
       // console.log("resp", resp);
       let select_type = document.getElementById("select_type");
-      let inhtml = "";
+      let inhtml = "<option value='null'>Select</option>";
       resp.map((i) => {
         inhtml = inhtml + `<option value="${i}">${i}</option>`;
       });
@@ -20,11 +21,12 @@ function fetchSuit() {
     .then((resp) => {
       //   console.log("resp", resp);
       let select_type = document.getElementById("select_type");
-      let inhtml = "";
+      let inhtml = "<option value='select' >select</option>";
       Object.keys(resp).map((item) => {
         inhtml = inhtml + `<option value="${item}">${item}</option>`;
         // console.log("item", item);
       });
+
       select_type.innerHTML = inhtml;
     })
     .catch((err) => {
@@ -35,8 +37,9 @@ function fetchTest() {
   fetch("http://localhost:3000/api/test-hierarchy")
     .then((resp) => resp.json())
     .then((resp) => {
+      test_hierarchy = resp;
       let select_type = document.getElementById("select_type");
-      let inhtml = "";
+      let inhtml = "<option value='null' >select</option>";
       let allTest = [];
       Object.keys(resp).map((item) => {
         let tests = Object.keys(resp[item]);
@@ -59,8 +62,9 @@ function fetchId() {
     .then((resp) => resp.json())
     .then((resp) => {
       //   console.log("resp", resp);
+      test_hierarchy = resp;
       let select_type = document.getElementById("select_type");
-      let inhtml = "";
+      let inhtml = `<option value="select">Select</option>`;
       let allTest = [];
       Object.keys(resp).map((item) => {
         let tests = Object.keys(resp[item]);
@@ -94,6 +98,8 @@ function fetchId() {
 
 function handleTypeChange() {
   let seleted_by = document.getElementById("select_by");
+  const test_suits_covered = document.getElementById("test-suits-covered");
+  test_suits_covered.innerHTML = "";
   switch (seleted_by.value) {
     case "suit": {
       fetchdata();
@@ -110,7 +116,70 @@ function handleTypeChange() {
   }
   //   fetchHierarchy();
 }
+function kickStart() {
+  fetch("http://localhost:3000/api/kick-start")
+    .then((resp) => {
+      console.log("resp", resp);
+    })
+    .catch((e) => {});
+}
 
+function handleSelectChange() {
+  let select = document.getElementById("select_type");
+  let select_by = document.getElementById("select_by");
+
+  if (select_by.value === "id") {
+    let selected_id = select.value;
+    let payload = { id: selected_id, type: "req_id" };
+    fetch("http://localhost:3000/api/test-case-by-id", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log("resp", resp);
+        let test_suits_covered = document.getElementById("test-suits-covered");
+        let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
+        resp.data.map((element, index) => {
+          html =
+            html +
+            `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
+              index + 1
+            }. ${element}</div>`;
+        });
+        test_suits_covered.innerHTML = html;
+      });
+    console.log("values", Object.values(test_hierarchy));
+  } else if (select_by.value === "suit") {
+    let selected_id = select.value;
+    let payload = { id: selected_id, type: "suit" };
+    fetch("http://localhost:3000/api/test-case-by-id", {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        console.log("resp", resp);
+        let test_suits_covered = document.getElementById("test-suits-covered");
+        let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
+        resp.data.map((element, index) => {
+          html =
+            html +
+            `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
+              index + 1
+            }. ${element}</div>`;
+        });
+        test_suits_covered.innerHTML = html;
+      });
+    console.log("values", Object.values(test_hierarchy));
+  }
+}
 function main() {
   // DOM loaded
   //   fetchdata();
