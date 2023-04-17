@@ -1,0 +1,32 @@
+{
+  "suite_gem_common": {
+    "tst_analyte_indicator_status_bar_static_information": {
+      "req_id": "34erfxxxx"
+    },
+    "tst_analyzer_datetime": {
+      "req_id": "35erfxxxx"
+    },
+    "tst_go_home_from_result": {
+      "req_id": "34erfxxxx"
+    },
+    "tst_home_navigator": {
+      "req_id": "36erfxxxx"
+    }
+  },
+  "suite_helios": {},
+  "suite_helios_bdd": {
+    "tst_analyte_indicator_status_bar_static_information": {
+      "req_id": "34erfxxxx"
+    },
+    "tst_analyzer_datetime": {
+      "req_id": "35erfxxxx"
+    },
+    "tst_go_home_from_result": {
+      "req_id": "34erfxxxx"
+    },
+    "tst_home_navigator": {
+      "req_id": "36erfxxxx"
+    }
+  },
+  "suite_helios_mockServer": {}
+}

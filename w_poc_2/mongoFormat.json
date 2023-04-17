@@ -1,0 +1,33 @@
+[
+    {
+        "id": "1",
+        "project":"project name",
+        "test_suit": "suit_gem_common",
+        "description":"description of the suit",
+        "path": "/web-path",
+        "test_case": ["tst_analyte_indicator_status_bar_static_information","tst_analyzer_datetime", "tst_go_home_from_result"],
+        "req_id": [
+            {"id": 1, "test_case": ["tst_go_home_from_result"], "value": "xxxx1"},
+            {"id": 2, "test_case": ["tst_analyzer_datetime","tst_go_home_from_result"], "value": "xxxx2"}
+        ],
+        "creation_date": "23 apr 2023",
+        "update_date": "24 apr 2024"
+    },
+
+    {
+        "id":"test_1",
+        "test_suit":"suit_gem_common",
+        "test_case_name": "tst_analyte_indicator_status_bar_static_information",
+        "description": "description of test case",
+        "creation_date": "23 apr 2023",
+        "update_date": "24 apr 2024"
+    },
+    {
+        "id": "req_1",
+        "req_id": "xxxx1",
+        "test_case": "tst_go_home_from_result",
+        "test_suit": "suit_gem_common",
+        "creation_date": "23 apr 2023",
+        "update_date": "24 apr 2024"
+    }
+]
