@@ -140,15 +140,16 @@ function handleSelectChange() {
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        console.log("resp", resp);
+        // console.log("resp", resp);
         let test_suits_covered = document.getElementById("test-suits-covered");
         let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
-        resp.data.map((element, index) => {
+        resp.data2.map((element, index) => {
+          // console.log("element", element);
           html =
             html +
             `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
               index + 1
-            }. ${element}</div>`;
+            }. ${element.name}:-> ${element.test_case_name}</div>`;
         });
         test_suits_covered.innerHTML = html;
       });

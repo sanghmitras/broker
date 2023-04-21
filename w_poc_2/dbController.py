@@ -36,7 +36,6 @@ def main():
         # print('suite', suite[0], suite[1])
         for key, val in dir_hierarchy[suite[1]].items():
             value = []
-            print('key:', key, 'value:', val)
             value.append(key)  # pushing test case name
             value.append(suite[0])  # pushing fk_suite_id
             value.append(val['req_id'])  # pushing req_id

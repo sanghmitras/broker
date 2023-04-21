@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const fs = require("fs");
 const shell = require("python-shell");
-// const modal = require('../modal/modal');
+const modal = require("../modal/modal");
 
 /* GET users listing. */
 router.get("/test-suit", function (req, res, next) {
@@ -48,9 +48,24 @@ router.post("/test-case-by-id", function (req, res, next) {
     if (req.body["type"] == "req_id") {
       test_case_data = JSON.parse(data)[0];
       let test_cases = test_case_data[req_item];
-      console.log("test case ", test_cases);
+      // console.log("test case ", test_cases);
       res.status(200);
-      res.send({ data: test_cases });
+      modal
+        .GetTestByID(req_item)
+        .then((result) => {
+          console.log("result");
+          res.send({ data: test_cases, data2: result });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      // test_cases = test_cases.map(Tcase=>{
+      //   test_suits = Object.keys(JSON.parse(data)[1])
+      //   test_suits.map(suite_name=>{
+      //     test_case_name = JSON.parse(data)[1][suite_name]
+
+      //   })
+      // })
     }
     if (req.body["type"] == "suit") {
       test_case_data = JSON.parse(data)[1];
