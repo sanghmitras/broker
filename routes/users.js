@@ -81,7 +81,7 @@ router.post("/kick-start", function (req, res, next) {
   const Script_base_address = path.join(__dirname, "../w_poc_2/broker_script");
   let options = {};
   let result = [];
-  req.body.selectedTest?.map((items, index) => {
+  (req.body?.selectedTest || []).map((items, index) => {
     console.log(
       "address>>:",
       `${Script_base_address}\\${items.suit}\\${items.testCase}`
