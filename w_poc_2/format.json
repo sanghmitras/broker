@@ -1,43 +1,43 @@
-// # JSON Response [{'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyte_indicator_status_bar_static_information', 'file_name': 'test.feature', 'req_id': '34erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_go_home_from_result', 'file_name': 'test.feature', 'req_id': '34erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyzer_datetime', 'file_name': 'test.feature', 'req_id': '35erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_home_navigator', 'file_name': 'test.feature', 'req_id': '36erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyte_indicator_status_bar_static_information', 'file_name': 'test.feature', 'req_id': '34erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_go_home_from_result', 'file_name': 'test.feature', 'req_id': '34erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyzer_datetime', 'file_name': 'test.feature', 'req_id': '35erfxxxx'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_home_navigator', 'file_name': 'test.feature', 'req_id': '36erfxxxx'}]
+// # JSON Response [{'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyte_indicator_status_bar_static_information', 'file_name': 'test.feature', 'req_id': 'AFUI_G5K-1234'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_go_home_from_result', 'file_name': 'test.feature', 'req_id': 'AFUI_G5K-1234'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyzer_datetime', 'file_name': 'test.feature', 'req_id': 'ANOP-5678'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_home_navigator', 'file_name': 'test.feature', 'req_id': 'AM_EC-9012'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyte_indicator_status_bar_static_information', 'file_name': 'test.feature', 'req_id': 'AFUI_G5K-1234'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_go_home_from_result', 'file_name': 'test.feature', 'req_id': 'AFUI_G5K-1234'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyzer_datetime', 'file_name': 'test.feature', 'req_id': 'ANOP-5678'}, {'dir_path': '/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_home_navigator', 'file_name': 'test.feature', 'req_id': 'AM_EC-9012'}]
 [
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyte_indicator_status_bar_static_information",
     "file_name": "test.feature",
-    "req_id": "34erfxxxx"
+    "req_id": "AFUI_G5K-1234"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_go_home_from_result",
     "file_name": "test.feature",
-    "req_id": "34erfxxxx"
+    "req_id": "AFUI_G5K-1234"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_analyzer_datetime",
     "file_name": "test.feature",
-    "req_id": "35erfxxxx"
+    "req_id": "ANOP-5678"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_gem_common/tst_home_navigator",
     "file_name": "test.feature",
-    "req_id": "36erfxxxx"
+    "req_id": "AM_EC-9012"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyte_indicator_status_bar_static_information",
     "file_name": "test.feature",
-    "req_id": "34erfxxxx"
+    "req_id": "AFUI_G5K-1234"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_go_home_from_result",
     "file_name": "test.feature",
-    "req_id": "34erfxxxx"
+    "req_id": "AFUI_G5K-1234"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_analyzer_datetime",
     "file_name": "test.feature",
-    "req_id": "35erfxxxx"
+    "req_id": "ANOP-5678"
   },
   {
     "dir_path": "/home/runner/PleasantAlphanumericLint/broker_script/suite_helios_bdd/tst_home_navigator",
     "file_name": "test.feature",
-    "req_id": "36erfxxxx"
+    "req_id": "AM_EC-9012"
   }
 ]

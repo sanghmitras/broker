@@ -1,5 +1,5 @@
 feature: Home Page Ampoules Tab
-reqId = 34erfxxxx
+reqId = AFUI_G5K-1234
 
 Setup Quick start Panels are displayed on the home page quick start tab.
 Setup Quick start Panels are displayed on the home page quick start tab.
