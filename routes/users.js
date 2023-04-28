@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const fs = require("fs");
 const shell = require("python-shell");
-const modal = require("../modal/modal");
+// const modal = require("../modal/modal");
 const path = require("path");
 
 /* GET users listing. */
@@ -51,15 +51,61 @@ router.post("/test-case-by-id", function (req, res, next) {
       let test_cases = test_case_data[req_item];
       // console.log("test case ", test_cases);
       res.status(200);
-      modal
-        .GetTestByID(req_item)
-        .then((result) => {
-          console.log("result");
-          res.send({ data: test_cases, data2: result });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      let resultFields = [];
+      let resultArray = [];
+      fs.readFile(
+        path.join(__dirname, "../w_poc_2/dir_hierarchy.json"),
+        "utf8",
+        function (err, data) {
+          if (err) throw err;
+
+          let resultArray = JSON.parse("[" + data + "]");
+          let brokerData = resultArray[0]["broker_script"];
+          // console.log(">>>>", brokerData, resultArray);
+          let allTestSuit = Object.keys(brokerData);
+
+          allTestSuit.map((suit, index) => {
+            let allTestCase = Object.keys(brokerData[suit]);
+            allTestCase.map((Testcase) => {
+              // let ValueOfTestCase = Object.values(brokerData[suit][Testcase]);
+
+              if (brokerData[suit][Testcase]["req_id"] == req_item) {
+                console.log(
+                  '(brokerData[suit][Testcase]["req_id"] == req_item',
+                  brokerData[suit][Testcase]["req_id"] == req_item,
+                  brokerData[suit][Testcase]["req_id"],
+                  req_item,
+                  {
+                    id: index,
+                    name: suit,
+                    req_id: req_item,
+                    test_case_name: Testcase,
+                  }
+                );
+                resultFields.push({
+                  id: index,
+                  name: suit,
+                  req_id: req_item,
+                  test_case_name: Testcase,
+                });
+              }
+            });
+          });
+          // console.log("allTestSuit", allTestSuit);
+          console.log("resut>>>>", resultFields);
+          res.send({ data: test_cases, data2: resultFields });
+        }
+      );
+
+      // modal
+      //   .GetTestByID(req_item)
+      //   .then((result) => {
+      //     console.log("result", result);
+      //     res.send({ data: test_cases, data2: result });
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
       // test_cases = test_cases.map(Tcase=>{
       //   test_suits = Object.keys(JSON.parse(data)[1])
       //   test_suits.map(suite_name=>{
@@ -81,7 +127,7 @@ router.post("/kick-start", function (req, res, next) {
   const Script_base_address = path.join(__dirname, "../w_poc_2/broker_script");
   let options = {};
   let result = [];
-  (req.body?.selectedTest || []).map((items, index) => {
+  (req.body.selectedTest || []).map((items, index) => {
     console.log(
       "address>>:",
       `${Script_base_address}\\${items.suit}\\${items.testCase}`

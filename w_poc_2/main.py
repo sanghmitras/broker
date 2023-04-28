@@ -137,7 +137,7 @@ def main():
 
     # Step 4: Saving hierarchy in dir_hierarchy file
     with open('dir_hierarchy.json', 'w') as f:
-        json.dump(dir_hierarchy, f)
+        json.dump(resp2, f)
 
     print("\n\nProcess end \n")
 
