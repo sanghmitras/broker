@@ -1,6 +1,1 @@
-[
-  "suite_gem_common",
-  "suite_helios",
-  "suite_helios_bdd",
-  "suite_helios_mockServer"
-]
+"[\"broker_script\", \"dbController.py\", \"dbView.py\", \"format.json\", \"LICENSE\", \"main.py\", \"modal.py\", \"mongoFormat.json\", \"output.json\", \"README.md\", \"sample.json\", \"__pycache__\"]"

@@ -3,6 +3,7 @@ var router = express.Router();
 const fs = require("fs");
 const shell = require("python-shell");
 const modal = require("../modal/modal");
+const path = require("path");
 
 /* GET users listing. */
 router.get("/test-suit", function (req, res, next) {
@@ -76,20 +77,57 @@ router.post("/test-case-by-id", function (req, res, next) {
   });
 });
 
-router.get("/kick-start", function (req, res, next) {
-  console.log("kick off running");
-  let options = {
-    mode: "text",
-    pythonPath: "path/to/python",
-    pythonOptions: ["-u"], // get print results in real-time
-    scriptPath: "path/to/my/scripts",
-    args: ["value1", "value2", "value3"],
-  };
-  shell.PythonShell.run("", null).then((message) => {
-    console.log("finished", message);
-    res.status(200);
-    res.end();
+router.post("/kick-start", function (req, res, next) {
+  const Script_base_address = path.join(__dirname, "../w_poc_2/broker_script");
+  let options = {};
+  let result = [];
+  req.body.selectedTest?.map((items, index) => {
+    console.log(
+      "address>>:",
+      `${Script_base_address}\\${items.suit}\\${items.testCase}`
+    );
+    options = {
+      mode: "text",
+      // pythonPath:  `${path.resolve(__dirname, '/w_poc_2/main.py')}`,
+      pythonOptions: ["-u"], // get print results in real-time
+      scriptPath: `${Script_base_address}\\${items.suit}\\${items.testCase}`,
+      // args: ["value1", "value2", "value3"],
+    };
+    shell.PythonShell.run("test.py", options)
+      .then((message) => {
+        let date = new Date();
+        result.push({
+          suit: items.suit,
+          testCase: items.testCase,
+          result: message,
+          date: date.toString(),
+        });
+        if (index === req.body.selectedTest.length - 1) {
+          fs.writeFile(
+            path.join(__dirname, "../w_poc_2/result.json"),
+            JSON.stringify(result),
+            "utf8",
+            (r) => {
+              console.log("write is done", r);
+            }
+          );
+          res.status(200);
+          res.end();
+        }
+      })
+      .catch((err) => {
+        console.log("error in execution", err);
+        res.end();
+      });
   });
 });
 
+router.get("/test-result", function (req, res, next) {
+  fs.readFile("../broker/w_poc_2/result.json", "utf8", function (err, data) {
+    if (err) throw err;
+
+    var resultArray = data;
+    res.send(resultArray);
+  });
+});
 module.exports = router;

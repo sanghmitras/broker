@@ -1,4 +1,5 @@
 var test_hierarchy = {};
+var testCaseCovered = [];
 function fetchdata() {
   fetch("http://localhost:3000/api/test-suit")
     .then((resp) => resp.json())
@@ -117,11 +118,44 @@ function handleTypeChange() {
   //   fetchHierarchy();
 }
 function kickStart() {
-  fetch("http://localhost:3000/api/kick-start")
+  let payload = {
+    selectedTest: testCaseCovered,
+  };
+  fetch("http://localhost:3000/api/kick-start", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
     .then((resp) => {
-      console.log("resp", resp);
+      console.log("resp", resp, testCaseCovered);
     })
     .catch((e) => {});
+}
+
+function getResult() {
+  fetch("http://localhost:3000/api/test-result")
+    .then((resp) => resp.json())
+    .then((resp) => {
+      console.log("result", resp);
+      let result_box = document.getElementById("result-box");
+      let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Results</div> 
+      <table>
+      <thead> <td>Suit</td> <td>Test Case</td><td>Date</td><td>Result</td>
+      </thead>
+      <tbody>`;
+      resp.map((item) => {
+        html =
+          html +
+          `<tr><td>${item.suit}</td> <td>${item.testCase}</td> <td>${item.date}</td> <td>${item.result}</td></tr>`;
+      });
+      html = html + `</tbody></table>`;
+      result_box.innerHTML = html;
+    })
+    .catch((err) => {
+      console.log("err", err);
+    });
 }
 
 function handleSelectChange() {
@@ -143,8 +177,13 @@ function handleSelectChange() {
         // console.log("resp", resp);
         let test_suits_covered = document.getElementById("test-suits-covered");
         let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
+        let testCaseCovered_local = [];
         resp.data2.map((element, index) => {
           // console.log("element", element);
+          testCaseCovered_local.push({
+            suit: element.name,
+            testCase: element.test_case_name,
+          });
           html =
             html +
             `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
@@ -152,6 +191,7 @@ function handleSelectChange() {
             }. ${element.name}:-> ${element.test_case_name}</div>`;
         });
         test_suits_covered.innerHTML = html;
+        testCaseCovered = testCaseCovered_local;
       });
     console.log("values", Object.values(test_hierarchy));
   } else if (select_by.value === "suit") {
@@ -166,10 +206,12 @@ function handleSelectChange() {
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        console.log("resp", resp);
+        // console.log("resp", resp);
+        let testCaseCovered_local = [];
         let test_suits_covered = document.getElementById("test-suits-covered");
         let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
         resp.data.map((element, index) => {
+          testCaseCovered_local.push({ suit: selected_id, testCase: element });
           html =
             html +
             `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
@@ -177,6 +219,7 @@ function handleSelectChange() {
             }. ${element}</div>`;
         });
         test_suits_covered.innerHTML = html;
+        testCaseCovered = testCaseCovered_local;
       });
     console.log("values", Object.values(test_hierarchy));
   }

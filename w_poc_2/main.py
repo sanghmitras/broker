@@ -68,7 +68,7 @@ def suitHierarchy(location):
 
     except Exception as err:
         print(err)
-pri
+
 
 def getReqIDTest(location):
     try:
@@ -116,8 +116,8 @@ def getSuite(location):
 
 
 def main():
-    # location = "D:\\projects\\python\\anupji\\broker_script"
-    location = input("Please write test suite directory path.\n")
+    location = "D:\\projects\\broker-server\\broker\\w_poc_2"
+    # location = input("Please write test suite directory path.\n")
 
     # Step 1 : Reading test suite Name
     print('Step 1: Reading test suite name from: ', location, '\n')
@@ -140,7 +140,6 @@ def main():
         json.dump(dir_hierarchy, f)
 
     print("\n\nProcess end \n")
-
 
     # response = getReqID(location)
     # new_response = ReqIdMapping(response)
