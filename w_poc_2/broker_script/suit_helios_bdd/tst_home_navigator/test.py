@@ -48,7 +48,7 @@ class TestStringMethods(unittest.TestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestStringMethods)
     result = unittest.TextTestRunner().run(suite)
-    print('Total Test Run', len(result.testsRun))
+    print('Total Test Run', result.testsRun)
     print('Total Fail', len(result.failures))
     # print('test result Errors', result.errors)
     # print('test result Skipped', result.skipped)

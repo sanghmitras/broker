@@ -137,15 +137,15 @@ router.post("/kick-start", function (req, res, next) {
   let options = {};
   let result = [];
   (req.body.selectedTest || []).map((items, index) => {
-    console.log(
-      "address>>:",
-      `${Script_base_address}\\${items.suit}\\${items.testCase}`
-    );
+    // console.log(
+    //   "address>>:",
+    //   `${Script_base_address}/${items.suit}/${items.testCase}`
+    // );
     options = {
       mode: "text",
       // pythonPath:  `${path.resolve(__dirname, '/w_poc_2/main.py')}`,
       pythonOptions: ["-u"], // get print results in real-time
-      scriptPath: `${Script_base_address}\\${items.suit}\\${items.testCase}`,
+      scriptPath: `${Script_base_address}/${items.suit}/${items.testCase}`,
       // args: ["value1", "value2", "value3"],
     };
     console.log("options", options.scriptPath);
