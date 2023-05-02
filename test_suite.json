@@ -1,1 +1,1 @@
-"[\"broker_script\", \"dbController.py\", \"dbView.py\", \"dir_hierarchy.json\", \"format.json\", \"LICENSE\", \"main.py\", \"modal.py\", \"mongoFormat.json\", \"output.json\", \"README.md\", \"sample.json\", \"test_suite.json\", \"__pycache__\"]"
+"[\"broker_script\", \"dbController.py\", \"dbView.py\", \"dir_hierarchy.json\", \"format.json\", \"LICENSE\", \"main.py\", \"model.py\", \"mongoFormat.json\", \"output.json\", \"README.md\", \"sample.json\", \"test_suite.json\", \"__pycache__\"]"

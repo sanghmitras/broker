@@ -1,4 +1,4 @@
-from modal import getData, setData
+from model import getData, setData
 import json
 
 

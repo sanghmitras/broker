@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const fs = require("fs");
 const shell = require("python-shell");
-// const modal = require("../modal/modal");
+// const model = require("../model/model");
 const path = require("path");
 
 /* GET users listing. */
@@ -14,7 +14,7 @@ router.get("/test-suit", function (req, res, next) {
     // console.log("result", data);
     res.send(resultArray);
   });
-  // modal.GetTestSuit().then(resp=>{
+  // model.GetTestSuit().then(resp=>{
   //   // console.log('result', resp)
   //   res.send(JSON.stringify(resp))
   //   res.status(200)
@@ -97,7 +97,7 @@ router.post("/test-case-by-id", function (req, res, next) {
         }
       );
 
-      // modal
+      // model
       //   .GetTestByID(req_item)
       //   .then((result) => {
       //     console.log("result", result);

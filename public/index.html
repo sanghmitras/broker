@@ -46,11 +46,21 @@
               ></select>
             </div>
             <div class="col-lg-3 col-md-3 col-3">
-              <label for="select_by">Build ID: </label>
-              <select name="select_by" id="select_by" class="dropdown_select">
+              <div class="form-group d-flex">
+                <label for="build_id">Build ID: </label>
+                <input
+                  type="text"
+                  placeholder="build ID"
+                  id="build_id"
+                  name="build_id"
+                  style="width: 60%"
+                />
+              </div>
+
+              <!-- <select name="select_by" id="select_by" class="dropdown_select">
                 <option value="null">xxx1</option>
                 <option value="suit">xxx2</option>
-              </select>
+              </select> -->
             </div>
             <div class="col-lg-3 col-md-3 col-3">
               <label for="select_by">Target Machine</label>
@@ -69,7 +79,7 @@
             <div class="col-lg-12 col-md-12 col-12">
               <div class="d-flex justify-content-center mt-3">
                 <button class="btn btn-outline-primary" onclick="kickStart()">
-                  Kick Off Build
+                  Kick Off Test
                 </button>
               </div>
             </div>

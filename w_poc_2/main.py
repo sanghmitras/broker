@@ -1,7 +1,7 @@
 from os import walk, path, listdir
 from pathlib import Path as Path_lib
 import json
-from modal import getData, setData
+from model import getData, setData
 
 
 def getReqID(location):
