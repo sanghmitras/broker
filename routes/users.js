@@ -7,7 +7,7 @@ const path = require("path");
 
 /* GET users listing. */
 router.get("/test-suit", function (req, res, next) {
-  fs.readFile("../broker/public/test_suit.json", "utf8", function (err, data) {
+  fs.readFile("../broker/w_poc_2/test_suit.json", "utf8", function (err, data) {
     if (err) throw err;
 
     var resultArray = data;
@@ -42,85 +42,94 @@ router.get("/test-hierarchy", function (req, res, next) {
 });
 
 router.post("/test-case-by-id", function (req, res, next) {
-  fs.readFile("../broker/w_poc_2/output.json", "utf-8", function (err, data) {
-    if (err) throw err;
-    let test_case_data = null;
-    let req_item = req.body["id"];
-    if (req.body["type"] == "req_id") {
-      test_case_data = JSON.parse(data)[0];
-      let test_cases = test_case_data[req_item];
-      // console.log("test case ", test_cases);
-      res.status(200);
-      let resultFields = [];
-      let resultArray = [];
-      fs.readFile(
-        path.join(__dirname, "../w_poc_2/dir_hierarchy.json"),
-        "utf8",
-        function (err, data) {
-          if (err) throw err;
-
-          let resultArray = JSON.parse("[" + data + "]");
-          let brokerData = resultArray[0]["broker_script"];
-          // console.log(">>>>", brokerData, resultArray);
-          let allTestSuit = Object.keys(brokerData);
-
-          allTestSuit.map((suit, index) => {
-            let allTestCase = Object.keys(brokerData[suit]);
-            allTestCase.map((Testcase) => {
-              // let ValueOfTestCase = Object.values(brokerData[suit][Testcase]);
-
-              if (brokerData[suit][Testcase]["req_id"] == req_item) {
-                console.log(
-                  '(brokerData[suit][Testcase]["req_id"] == req_item',
-                  brokerData[suit][Testcase]["req_id"] == req_item,
-                  brokerData[suit][Testcase]["req_id"],
-                  req_item,
-                  {
-                    id: index,
-                    name: suit,
-                    req_id: req_item,
-                    test_case_name: Testcase,
-                  }
-                );
-                resultFields.push({
-                  id: index,
-                  name: suit,
-                  req_id: req_item,
-                  test_case_name: Testcase,
-                });
-              }
-            });
-          });
-          // console.log("allTestSuit", allTestSuit);
-          console.log("resut>>>>", resultFields);
-          res.send({ data: test_cases, data2: resultFields });
-        }
-      );
-
-      // model
-      //   .GetTestByID(req_item)
-      //   .then((result) => {
-      //     console.log("result", result);
-      //     res.send({ data: test_cases, data2: result });
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
-      // test_cases = test_cases.map(Tcase=>{
-      //   test_suits = Object.keys(JSON.parse(data)[1])
-      //   test_suits.map(suite_name=>{
-      //     test_case_name = JSON.parse(data)[1][suite_name]
-
-      //   })
-      // })
-    }
-    if (req.body["type"] == "suit") {
-      test_case_data = JSON.parse(data)[1];
+  if (req.body["type"] === "suit") {
+    fs.readFile("../broker/w_poc_2/dir_hierarchy.json", function (err, data) {
+      if (err) throw err;
+      let test_case_data = null;
+      let req_item = req.body["id"];
+      test_case_data = JSON.parse(data);
       let test_cases = test_case_data[req_item];
       res.status(200);
       res.send({ data: Object.keys(test_cases) });
-    }
-  });
+    });
+  }
+  if (req.body["type"] === "req_id") {
+    fs.readFile(
+      "../broker/w_poc_2/reqID_mapping.json",
+      "utf-8",
+      function (err, data) {
+        if (err) throw err;
+        let test_case_data = null;
+        let req_item = req.body["id"];
+        if (req.body["type"] == "req_id") {
+          test_case_data = JSON.parse(data);
+          let test_cases = test_case_data[req_item];
+          // console.log("test case ", test_cases);
+          res.status(200);
+          let resultFields = [];
+          let resultArray = [];
+          fs.readFile(
+            path.join(__dirname, "../w_poc_2/dir_hierarchy.json"),
+            "utf8",
+            function (err, data) {
+              if (err) throw err;
+
+              let brokerData = JSON.parse(data);
+              let allTestSuit = Object.keys(brokerData);
+
+              allTestSuit.map((suit, index) => {
+                let allTestCase = Object.keys(brokerData[suit]);
+                allTestCase.map((Testcase) => {
+                  // let ValueOfTestCase = Object.values(brokerData[suit][Testcase]);
+
+                  if (brokerData[suit][Testcase]["req_id"] == req_item) {
+                    // console.log(
+                    //   '(brokerData[suit][Testcase]["req_id"] == req_item',
+                    //   brokerData[suit][Testcase]["req_id"] == req_item,
+                    //   brokerData[suit][Testcase]["req_id"],
+                    //   req_item,
+                    //   {
+                    //     id: index,
+                    //     name: suit,
+                    //     req_id: req_item,
+                    //     test_case_name: Testcase,
+                    //   }
+                    // );
+                    resultFields.push({
+                      id: index,
+                      name: suit,
+                      req_id: req_item,
+                      test_case_name: Testcase,
+                    });
+                  }
+                });
+              });
+              // console.log("allTestSuit", allTestSuit);
+              console.log("resut>>>>", resultFields);
+              res.send({ data: test_cases, data2: resultFields });
+            }
+          );
+
+          // model
+          //   .GetTestByID(req_item)
+          //   .then((result) => {
+          //     console.log("result", result);
+          //     res.send({ data: test_cases, data2: result });
+          //   })
+          //   .catch((e) => {
+          //     console.log(e);
+          //   });
+          // test_cases = test_cases.map(Tcase=>{
+          //   test_suits = Object.keys(JSON.parse(data)[1])
+          //   test_suits.map(suite_name=>{
+          //     test_case_name = JSON.parse(data)[1][suite_name]
+
+          //   })
+          // })
+        }
+      }
+    );
+  }
 });
 
 router.post("/kick-start", function (req, res, next) {
@@ -139,6 +148,7 @@ router.post("/kick-start", function (req, res, next) {
       scriptPath: `${Script_base_address}\\${items.suit}\\${items.testCase}`,
       // args: ["value1", "value2", "value3"],
     };
+    console.log("options", options.scriptPath);
     shell.PythonShell.run("test.py", options)
       .then((message) => {
         let date = new Date();
@@ -148,6 +158,7 @@ router.post("/kick-start", function (req, res, next) {
           result: message,
           date: date.toString(),
         });
+        console.log("result", result);
         if (index === req.body.selectedTest.length - 1) {
           fs.writeFile(
             path.join(__dirname, "../w_poc_2/result.json"),

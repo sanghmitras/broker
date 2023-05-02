@@ -51,7 +51,7 @@ def suitHierarchy(location):
         dic = {}
         for (dirPath, dirNames, fileNames) in walk(location):
             for dir in dirNames:
-                if dir.startswith("suite"):
+                if dir.startswith("suit"):
                     # obj = {}
                     dic[dir] = {}
                     # payload.append(dic)
@@ -76,7 +76,7 @@ def getReqIDTest(location):
         dic = {}
         for (dirPath, dirNames, fileNames) in walk(location):
             for dir in dirNames:
-                if dir.startswith("suite"):
+                if dir.startswith("suit"):
                     dic[dir] = []
                 if dir.startswith("tst"):
                     for suitName in dic.keys():
@@ -108,7 +108,7 @@ def ReqIdMapping(response):
     return new_response
 
 
-def getSuite(location):
+def getSuit(location):
     try:
         return listdir(location)
     except:
@@ -116,20 +116,20 @@ def getSuite(location):
 
 
 def main():
-    location = "D:\\projects\\broker-server\\broker\\w_poc_2"
-    # location = input("Please write test suite directory path.\n")
+    location = "D:\\projects\\broker-server\\broker\\w_poc_2\\broker_script"
+    # location = input("Please write test suit directory path.\n")
 
-    # Step 1 : Reading test suite Name
-    print('Step 1: Reading test suite name from: ', location, '\n')
-    payload = getSuite(location)  # array format
+    # Step 1 : Reading test suit Name
+    print('Step 1: Reading test suit name from: ', location, '\n')
+    payload = getSuit(location)  # array format
 
-    # Step 2 : Writing test suite in the testSuite.json file
-    print("Available Test Suites \n", payload, "\n")
-    testSuite_json = json.dumps(payload)
-    with open('test_suite.json', 'w') as f:
-        json.dump(testSuite_json, f)
+    # Step 2 : Writing test suit in the testSuit.json file
+    print("Available Test Suit \n", payload, "\n")
+    # testSuit_json = json.dumps(payload)
+    with open('test_suit.json', 'w') as f:
+        json.dump(payload, f)
 
-    # Step 3 : Reading test suite, test case and req id hierarchically
+    # Step 3 : Reading test suit, test case and req id hierarchically
     resp2 = create_dir_tree_dict(location)
     dir_hierarchy = json.dumps(resp2, indent=2)
     print("Reading directory hierarchy")
@@ -139,10 +139,14 @@ def main():
     with open('dir_hierarchy.json', 'w') as f:
         json.dump(resp2, f)
 
+    response = getReqID(location)
+    new_response = ReqIdMapping(response)
+    with open('reqID_mapping.json', 'w') as f:
+        json.dump(new_response, f)
+    print(new_response)
     print("\n\nProcess end \n")
 
-    # response = getReqID(location)
-    # new_response = ReqIdMapping(response)
+
     # response = json.dumps(response, indent=2)
     # print('JSON Response', response)
     # resp2 = create_dir_tree_dict(location)

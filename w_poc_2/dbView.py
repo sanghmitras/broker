@@ -5,13 +5,13 @@ import json
 def main():
 
     while True:
-        print("1. Get list of test suite \n2. Get List of test case \n3. Get list of test case with request id.\n4. Exit")
+        print("1. Get list of test suit \n2. Get List of test case \n3. Get list of test case with request id.\n4. Exit")
         option = input("Choose your option.\n")
         if option == 4 or option == "4":
             print('Process ending.')
             break
         if option == 1 or option == "1":
-            query = "SELECT ID, NAME FROM TEST_SUITE WHERE 1"
+            query = "SELECT ID, NAME FROM TEST_SUIT WHERE 1"
             resp = getData(query)
             resp = json.dumps(resp)
             print('response:', resp, '\n')

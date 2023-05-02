@@ -11,7 +11,7 @@ class TestStringMethods(unittest.TestCase):
     # Returns True if the string contains 4 a.
     def test_strings_a(self):
         f = io.StringIO()
-        print('f', f.getvalue())
+        print(f.getvalue())
         # with self.assertRaises(SystemExit) as cm, contextlib.redirect_stderr(f):
         #     parser = target.parse_args([])
         self.assertEqual('a'*4, 'aaaa')
@@ -48,10 +48,10 @@ class TestStringMethods(unittest.TestCase):
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestStringMethods)
     result = unittest.TextTestRunner().run(suite)
-    print('test result Run', result.testsRun)
-    print('test result Fail', result.failures)
-    print('test result Errors', result.errors)
-    print('test result Skipped', result.skipped)
-    print('test result ExpectedFails', result.expectedFailures)
-    print('test result unexpected Success', result.unexpectedSuccesses)
+    print('Total Test Run', len(result.testsRun))
+    print('Total Fail', len(result.failures))
+    # print('test result Errors', result.errors)
+    # print('test result Skipped', result.skipped)
+    # print('test result ExpectedFails', result.expectedFailures)
+    # print('test result unexpected Success', result.unexpectedSuccesses)
     # unittest.main()
