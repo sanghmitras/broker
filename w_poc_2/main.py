@@ -1,7 +1,9 @@
-from os import walk, path, listdir
+from os import walk, path, listdir, getenv
 from pathlib import Path as Path_lib
 import json
 from model import getData, setData
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def getReqID(location):
@@ -116,8 +118,7 @@ def getSuit(location):
 
 
 def main():
-    location = "D:\\projects\\broker-server\\broker\\w_poc_2\\broker_script"
-    # location = input("Please write test suit directory path.\n")
+    location = getenv("PYTHON_BASE_ADDRESS")
 
     # Step 1 : Reading test suit Name
     print('Step 1: Reading test suit name from: ', location, '\n')

@@ -16,24 +16,24 @@ function fetchdata() {
       console.log("err", err);
     });
 }
-function fetchSuit() {
-  fetch("http://localhost:3000/api/test-hierarchy")
-    .then((resp) => resp.json())
-    .then((resp) => {
-      //   console.log("resp", resp);
-      let select_type = document.getElementById("select_type");
-      let inhtml = "<option value='select' >select</option>";
-      Object.keys(resp).map((item) => {
-        inhtml = inhtml + `<option value="${item}">${item}</option>`;
-        // console.log("item", item);
-      });
+// function fetchSuit() {
+//   fetch("http://localhost:3000/api/test-hierarchy")
+//     .then((resp) => resp.json())
+//     .then((resp) => {
+//       //   console.log("resp", resp);
+//       let select_type = document.getElementById("select_type");
+//       let inhtml = "<option value='select' >select</option>";
+//       Object.keys(resp).map((item) => {
+//         inhtml = inhtml + `<option value="${item}">${item}</option>`;
+//         // console.log("item", item);
+//       });
 
-      select_type.innerHTML = inhtml;
-    })
-    .catch((err) => {
-      console.log("err", err);
-    });
-}
+//       select_type.innerHTML = inhtml;
+//     })
+//     .catch((err) => {
+//       console.log("err", err);
+//     });
+// }
 function fetchTest() {
   fetch("http://localhost:3000/api/test-hierarchy")
     .then((resp) => resp.json())
