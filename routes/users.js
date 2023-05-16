@@ -38,7 +38,6 @@ router.get("/test-hierarchy", function (req, res, next) {
 });
 
 router.post("/test-case-by-id", function (req, res, next) {
-  console.log("environemt variable", process.env.PORT);
   if (req.body["type"] === "suit") {
     fs.readFile("./w_poc_2/dir_hierarchy.json", function (err, data) {
       if (err) throw err;
@@ -46,8 +45,11 @@ router.post("/test-case-by-id", function (req, res, next) {
       let req_item = req.body["id"];
       test_case_data = JSON.parse(data);
       let test_cases = test_case_data[req_item];
+      let formatted_data = Object.keys(test_cases).map((item) => {
+        return { test_case: item, details: test_cases[item] };
+      });
       res.status(200);
-      res.send({ data: Object.keys(test_cases) });
+      res.send({ data: formatted_data });
     });
   }
   if (req.body["type"] === "req_id") {
@@ -94,6 +96,7 @@ router.post("/test-case-by-id", function (req, res, next) {
                     name: suit,
                     req_id: req_item,
                     test_case_name: Testcase,
+                    path: brokerData[suit][Testcase]["path"],
                   });
                 }
               });
@@ -137,7 +140,7 @@ router.post("/kick-start", function (req, res, next) {
       mode: "text",
       // pythonPath:  `${path.resolve(__dirname, '/w_poc_2/main.py')}`,
       pythonOptions: ["-u"], // get print results in real-time
-      scriptPath: `${Script_base_address}/${items.suit}/${items.testCase}`,
+      scriptPath: `${items.path}`,
     };
     shell.PythonShell.run("test.py", options)
       .then((message) => {
