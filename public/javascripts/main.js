@@ -45,7 +45,7 @@ function fetchTest() {
       Object.keys(resp).map((item) => {
         let tests = Object.keys(resp[item]);
         tests.map((i) => {
-          allTest.push(i);
+          allTest.push(`${item} > ${i}`);
         });
       });
       allTest.map((test) => {
@@ -166,7 +166,7 @@ function getResult() {
 function handleSelectChange() {
   let select = document.getElementById("select_type");
   let select_by = document.getElementById("select_by");
-
+  console.log("selected value", select_by.value);
   if (select_by.value === "id") {
     let selected_id = select.value;
     let payload = { id: selected_id, type: "req_id" };
@@ -227,6 +227,12 @@ function handleSelectChange() {
         testCaseCovered = testCaseCovered_local;
       });
     console.log("values", Object.values(test_hierarchy));
+  } else if (select_by.value === "test_case") {
+    console.log("select value", select.value);
+    let testcase = select.value.split(">")[1];
+    let testsuit = select.value.split(">")[0];
+    testCaseCovered = [{ suit: testsuit.trim(), testCase: testcase.trim() }];
+    console.log("test coverd changed", testCaseCovered);
   }
 }
 function main() {
