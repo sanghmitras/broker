@@ -27,19 +27,15 @@ router.get("/test-suit", function (req, res, next) {
   // })
 });
 
-// router.get("/test-hierarchy", function (req, res, next) {
-//   fs.readFile(
-//     "../broker/public/dir_hierarchy.json",
-//     "utf8",
-//     function (err, data) {
-//       if (err) throw err;
+router.get("/test-hierarchy", function (req, res, next) {
+  fs.readFile("./w_poc_2/dir_hierarchy.json", "utf8", function (err, data) {
+    if (err) throw err;
 
-//       var resultArray = data;
-//       // console.log("result", data);
-//       res.send(resultArray);
-//     }
-//   );
-// });
+    var resultArray = data;
+    // console.log("result", data);
+    res.send(resultArray);
+  });
+});
 
 router.post("/test-case-by-id", function (req, res, next) {
   console.log("environemt variable", process.env.PORT);

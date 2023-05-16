@@ -1,7 +1,7 @@
 from os import walk, path, listdir, getenv
 from pathlib import Path as Path_lib
 import json
-from model import getData, setData
+# from model import getData, setData
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -117,21 +117,62 @@ def getSuit(location):
         return []
 
 
+def get_hierarchy_bottom2up(location):
+    dump = []
+    for root, dir, files in walk(location):
+        for file in files:
+            if file.endswith(".feature"):
+                dump.append(path.join(root, file))
+    return dump
+
+
+def get_hierarchy_by_address(location):
+    address_list = get_hierarchy_bottom2up(location)
+    hierarchy = {}
+    req_id = ''
+    test_suit_list = []
+    for address in address_list:
+        with open(address) as f:
+            lines = f.readlines()
+            for line in lines:
+                if "reqId" in line:
+                    req_id = line.split("=")[
+                        1].strip()
+
+        head, tail = path.split(address)
+        file_name = tail
+        test_case_name = ''
+        test_suit = ''
+        if path.isdir(head):
+            test_case_name = path.basename(head)
+            dir_name = path.dirname(head)  # without basename/ till parent dir
+            test_suit = path.basename(dir_name)
+            test_suit_list.append(test_suit)
+
+        if test_suit not in hierarchy:
+            hierarchy[test_suit] = {}
+        hierarchy[test_suit][test_case_name] = {
+            "feature": file_name, "req_id": req_id}
+    test_suit_list = [*set(test_suit_list)]  # removing duplicates
+    return hierarchy, test_suit_list
+
+
 def main():
     location = getenv("PYTHON_BASE_ADDRESS")
-
+    hierarchy, suit_list = get_hierarchy_by_address(location)
     # Step 1 : Reading test suit Name
     print('Step 1: Reading test suit name from: ', location, '\n')
-    payload = getSuit(location)  # array format
+    # payload = getSuit(location)  # array format
 
     # Step 2 : Writing test suit in the testSuit.json file
-    print("Available Test Suit \n", payload, "\n")
+    print("Available Test Suit \n", suit_list, "\n")
     # testSuit_json = json.dumps(payload)
     with open('test_suit.json', 'w') as f:
-        json.dump(payload, f)
+        json.dump(suit_list, f)
 
     # Step 3 : Reading test suit, test case and req id hierarchically
-    resp2 = create_dir_tree_dict(location)
+    # resp2 = create_dir_tree_dict(location)
+    resp2 = hierarchy
     dir_hierarchy = json.dumps(resp2, indent=2)
     print("Reading directory hierarchy")
     print(dir_hierarchy)

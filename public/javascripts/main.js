@@ -72,11 +72,16 @@ function fetchId() {
         // console.log("tst", tests);
         tests.map((i) => {
           //   console.log("i", i);
-          let values_with_id = Object.values(resp[item][i]);
-          values_with_id.map((v) => {
-            // console.log("values", v, item, i);
-            allTest.push(v);
-          });
+          id = resp[item][i]["req_id"];
+          allTest.push(id);
+          // let values_with_id = Object.values(resp[item][i]);
+          // values_with_id.map((v) => {
+          //   console.log("values", v, item, i);
+
+          //   if (v === "req_id") {
+          //     allTest.push(v);
+          //   }
+          // });
           // allTest.push(i);
         });
       });
