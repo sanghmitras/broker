@@ -129,12 +129,21 @@ router.post("/test-case-by-id", function (req, res, next) {
 });
 
 router.post("/kick-start", function (req, res, next) {
-  const Script_base_address = path.join(
-    __dirname,
-    `../${process.env.NODE_SCRIPT_BASE_ADDRESS}`
-  );
   let options = {};
   let result = [];
+  let selection_detail = {
+    user: "test_user",
+    date: new Date(),
+    selected_test: req.body.selectedTest,
+  };
+  fs.appendFile(
+    path.join(__dirname, "../w_poc_2/selected_case.json"),
+    JSON.stringify(selection_detail) + "\n",
+    "utf8",
+    (r) => {
+      console.log("selection detail write", r);
+    }
+  );
   (req.body.selectedTest || []).map((items, index) => {
     options = {
       mode: "text",
