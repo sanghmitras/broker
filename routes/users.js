@@ -4,6 +4,10 @@ const fs = require("fs");
 const shell = require("python-shell");
 // const model = require("../model/model");
 const path = require("path");
+const child_process = require('child_process');
+var SSH = require('simple-ssh');
+const { Client } = require('ssh2');
+const { connectViaSSH2 } = require('../controller/index')
 
 /* GET users listing. */
 router.get("/test-suit", function (req, res, next) {
@@ -28,6 +32,7 @@ router.get("/test-suit", function (req, res, next) {
 });
 
 router.get("/test-hierarchy", function (req, res, next) {
+  // ExecuteShell("ls -l")
   fs.readFile("./w_poc_2/dir_hierarchy.json", "utf8", function (err, data) {
     if (err) throw err;
 
@@ -124,8 +129,50 @@ router.post("/test-case-by-id", function (req, res, next) {
     });
   }
 });
+const ExecuteShell = async (command) => {
+  //   console.log('executing function')
+  //   var ssh = new SSH({
+  //     host: 'localhost',
+  //     user: 'username',
+  //     pass: 'password'
+  // });
 
+  // ssh.exec('echo $PATH', {
+  //   out: function(stdout) {
+  //       console.log(stdout);
+  //   }
+  // }).start();
+
+  // child_process.exec(command, (error, stdout, stderr) => {
+  //   if (error !== null) {
+  //     console.log("exec err", error)
+  //   }
+  //   console.log("Stdout", stdout);
+  //   console.log("stderr", stderr);
+  // })
+
+  const conn = new Client();
+  conn.on('ready', () => {
+    console.log('Client :: ready');
+    conn.exec('uptime', (err, stream) => {
+      if (err) throw err;
+      stream.on('close', (code, signal) => {
+        console.log('Stream :: close :: code: ' + code + ', signal: ' + signal);
+        conn.end();
+      }).on('data', (data) => {
+        console.log('STDOUT: ' + data);
+      }).stderr.on('data', (data) => {
+        console.log('STDERR: ' + data);
+      });
+    });
+  }).connect({
+    host: '127.0.0.1',
+    port: 22,
+    username: 'sanghmitra',
+  });
+}
 router.post("/kick-start", function (req, res, next) {
+  connectViaSSH2()
   const Script_base_address = path.join(
     __dirname,
     `../${process.env.NODE_SCRIPT_BASE_ADDRESS}`
@@ -139,6 +186,7 @@ router.post("/kick-start", function (req, res, next) {
       pythonOptions: ["-u"], // get print results in real-time
       scriptPath: `${Script_base_address}/${items.suit}/${items.testCase}`,
     };
+
     shell.PythonShell.run("test.py", options)
       .then((message) => {
         let date = new Date();
@@ -148,6 +196,7 @@ router.post("/kick-start", function (req, res, next) {
           result: message,
           date: date.toString(),
         });
+
         if (index === req.body.selectedTest.length - 1) {
           fs.writeFile(
             path.join(__dirname, "../w_poc_2/result.json"),
