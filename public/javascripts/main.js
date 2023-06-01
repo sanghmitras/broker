@@ -188,6 +188,7 @@ function handleSelectChange() {
           testCaseCovered_local.push({
             suit: element.name,
             testCase: element.test_case_name,
+            path: element.path,
           });
           html =
             html +
@@ -216,22 +217,28 @@ function handleSelectChange() {
         let test_suits_covered = document.getElementById("test-suits-covered");
         let html = `<div style="padding:10px; background:darkcyan; font-weight: 700; color: white; margin-top: 20px;">Test Cases Covered</div>`;
         resp.data.map((element, index) => {
-          testCaseCovered_local.push({ suit: selected_id, testCase: element });
+          testCaseCovered_local.push({
+            suit: selected_id,
+            testCase: element.test_case,
+            path: element.details?.path,
+          });
           html =
             html +
             `<div style="margin-top:10px; background:#f2f2f2;padding-left:10px">${
               index + 1
-            }. ${element}</div>`;
+            }. ${element.test_case}</div>`;
         });
         test_suits_covered.innerHTML = html;
         testCaseCovered = testCaseCovered_local;
       });
     console.log("values", Object.values(test_hierarchy));
   } else if (select_by.value === "test_case") {
-    console.log("select value", select.value);
     let testcase = select.value.split(">")[1];
     let testsuit = select.value.split(">")[0];
-    testCaseCovered = [{ suit: testsuit.trim(), testCase: testcase.trim() }];
+    let path = test_hierarchy[testsuit.trim()][testcase.trim()]["path"];
+    testCaseCovered = [
+      { suit: testsuit.trim(), testCase: testcase.trim(), path },
+    ];
     console.log("test coverd changed", testCaseCovered);
   }
 }

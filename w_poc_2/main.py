@@ -152,7 +152,7 @@ def get_hierarchy_by_address(location):
         if test_suit not in hierarchy:
             hierarchy[test_suit] = {}
         hierarchy[test_suit][test_case_name] = {
-            "feature": file_name, "req_id": req_id}
+            "feature": file_name, "req_id": req_id, "path": head}
     test_suit_list = [*set(test_suit_list)]  # removing duplicates
     return hierarchy, test_suit_list
 
@@ -187,7 +187,6 @@ def main():
         json.dump(new_response, f)
     print(new_response)
     print("\n\nProcess end \n")
-
 
     # response = json.dumps(response, indent=2)
     # print('JSON Response', response)
